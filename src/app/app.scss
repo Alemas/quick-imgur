@@ -1,0 +1,52 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+ion-content {
+	background-color: #141518 !important;
+}
+
+// ion-list.bottomMenuList {
+// 	position: relative;
+// 	bottom: 0;
+// }
+
+.sideMenuFooter {
+	margin-bottom: 20px;
+}
+
+.bottomSideMenuButton {
+	color: #949494;
+	background-color: transparent !important;
+	font-family: 'VarelaRound';
+	font-size: medium;
+	text-transform: none;
+	width: inherit;
+	height: 40px;
+}
+
+ion-spinner.renewTokenSpinner {
+	height: 20px !important;
+	width: 20px !important;
+	margin: 0 10px !important;
+	vertical-align: middle;
+}
+
+ion-spinner.renewTokenSpinner * {
+	stroke: #47484a !important;
+	stroke-width: 7px !important;
+}
+

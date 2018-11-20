@@ -1,0 +1,61 @@
+<!--
+  Generated template for the GalleryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+	<ion-navbar color="prettyGreen">
+		<ion-title>Gallery</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+	<ion-segment [(ngModel)]="galleryType" color="prettyGreen">
+		<ion-segment-button value='grid'>
+			<ion-icon name='grid'></ion-icon>
+		</ion-segment-button>
+		<ion-segment-button value='list'>
+			<ion-icon name='list'></ion-icon>
+		</ion-segment-button>
+	</ion-segment>
+
+	<div [ngSwitch]='galleryType'>
+		<ion-grid *ngSwitchCase="'grid'">
+			<ion-row>
+				<ion-col col-6 col-md-4 col-xl-3 *ngFor='let img of images'>
+					<img [src]='sanitizer.bypassSecurityTrustUrl(imageSources[img.id])' (click)='showImageViewer(img)'>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+
+		<ion-list *ngSwitchCase="'list'">
+			<!-- <ion-list-header color='primary'>Header</ion-list-header> -->
+			<ion-item *ngFor='let img of images'>
+				<ion-thumbnail item-start>
+					<!-- <img [src]='sanitizer.bypassSecurityTrustUrl(imageSources[img.id])' (click)='showImageViewer(img)'>		 -->
+					<img [src]='sanitizer.bypassSecurityTrustUrl(imageSources[img.id])' (click)='showImageViewer(img)'>
+				</ion-thumbnail>
+				<ion-label item-content>{{img.title}}<br>{{getDate(img.timestamp)}}</ion-label>
+				<button item-end class='moreButton' (click)='showMoreOptions(img)'>
+					<img src="../../assets/imgs/more-icon-wh.png">
+				</button>
+			</ion-item>
+		</ion-list>
+	</div>
+
+	<!-- <ion-card class="imgCard" *ngFor="let img of images">
+		<ion-item>
+			<ion-thumbnail item-start>
+				<img [src]="img.url">
+			</ion-thumbnail>
+		</ion-item>
+	</ion-card> -->
+
+
+
+</ion-content>

@@ -1,0 +1,59 @@
+page-gallery {
+
+	ion-segment {
+		margin-bottom: 20px;
+	}
+
+	ion-navbar {
+		color: #21203c !important;
+	}
+
+	ion-col img {
+		width: 100%;
+		height: 200px;
+		object-fit: cover;
+	}
+
+	ion-list-header {
+		border: none !important;
+		margin-bottom: 0px;
+	}
+
+	ion-list ion-item{
+		font-family: 'VarelaRound';
+		height: 70px;
+		padding:5px !important;
+		color: white !important;
+		background-color: #505050 !important;
+		border-radius: 0px;
+		margin-top: 1px !important;
+	}
+
+	ion-thumbnail {
+		height: 60px !important;
+		width: 60px !important;
+		min-height: 60px !important;
+		min-width: 60px !important;
+	}
+
+	ion-thumbnail img {
+		object-fit: cover;
+		height: inherit !important;
+	}
+
+	div.item-inner {
+		border-style: none !important;
+	}
+
+	button.moreButton {
+		margin: 0 !important;
+		height: 100%;
+		width: 70px;
+		background-color: transparent;
+	}
+
+	.moreButton img {
+		height: 30px;
+	}
+
+}
