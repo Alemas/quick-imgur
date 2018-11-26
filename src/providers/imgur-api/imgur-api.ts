@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Base64 } from '@ionic-native/base64';
 import { File } from '@ionic-native/file';
+import { AlertController} from 'ionic-angular';
 
 /*
   Generated class for the ImgurApiProvider provider.
@@ -21,26 +22,24 @@ import { File } from '@ionic-native/file';
   	private refreshTokenKey: string = "refreshToken";
   	private baseURL: string = "https://api.imgur.com/3";
 
-  	private refreshToken: string;
+  	private refreshToken: string = 'a1fa3f5e4d16ff25fa5951451f9bd73dc12ff75d';
   	private client_id: string = 'a99f12969fe4e4b';
   	private client_secret: string = 'd3798cf86b3c677a8ef30d0a1a9fbbea1e317a66';
-  	private accessToken: string;
-  	private authorizationHeader = new HttpHeaders ({
-  		Authorization: 'Bearer ' + this.accessToken
-  	});
+  	private accessToken: string = '260d7c250016675e3fe985db0adf7405a321075a';
   	private runningUploads: number = 0;
   	private runningUploadsSubject = new Subject<number>();
+  	private debug = true;
 
   	constructor(public http: HttpClient,
   		public base64: Base64,
-  		private file: File) {
+  		private file: File,
+  		private alertCtrl: AlertController) {
 
-  		this.renewAccessToken((data, err) => {
-  			this.refreshToken = this.getRefreshToken();
-  			this.accessTokenKey = this.getAccessToken();
-  		})
+  		this.refreshToken = this.getRefreshToken();
+  		this.accessToken = this.getAccessToken();
+
+  		this.renewAccessToken();
   	}
-
 
   	renewAccessToken(callback?:(data: any, err: Error) => void) {
 
@@ -78,7 +77,7 @@ import { File } from '@ionic-native/file';
   		this.runningUploads++;
   		this.runningUploadsSubject.next(this.runningUploads);
 
-  		this.http.post(this.baseURL + "/image", body, {headers: this.authorizationHeader}).subscribe(data => {
+  		this.http.post(this.baseURL + "/image", body, {headers: this.getAuthorizationHeader()}).subscribe(data => {
   			const result = (data as any);
   			console.log(result);
   			var uploadedImagesString = localStorage.getItem(this.uploadedImagesKey);
@@ -107,6 +106,9 @@ import { File } from '@ionic-native/file';
   		}, err => {
   			this.runningUploads--;
   			this.runningUploadsSubject.next(this.runningUploads);
+  			if (this.debug) {
+  				this.showAlert('Upload image error', err.error.data.error);
+  			}
   			if (callback) { callback(null, err); }
   		});
   	}
@@ -149,7 +151,7 @@ import { File } from '@ionic-native/file';
   	}
 
   	deleteImage(img:any, callback?: (data: any, err: Error) => void) {
-  		this.http.delete(this.baseURL + '/image/' + img.deletehash, {headers: this.authorizationHeader}).subscribe(data => {
+  		this.http.delete(this.baseURL + '/image/' + img.deletehash, {headers: this.getAuthorizationHeader()}).subscribe(data => {
   			let hist = this.getUploadedImages();
   			hist = hist.filter((v, i, a) => {
   				return v.id  != img.id;
@@ -196,8 +198,19 @@ import { File } from '@ionic-native/file';
   		return [];
   	}
 
+  	private showAlert(title:string, subTitle:string) {
+  		let alert = this.alertCtrl.create({title: title, subTitle: subTitle, buttons:[{text: 'Ok'}]})
+  		alert.present();
+  	}
+
   	private setUploadedImages(uploadedImages: Array<any>) {
   		localStorage.setItem(this.uploadedImagesKey, JSON.stringify(uploadedImages));
+  	}
+
+  	private getAuthorizationHeader(): HttpHeaders {
+  		return new HttpHeaders ({
+  			Authorization: 'Bearer ' + this.accessToken
+  		});
   	}
 
   	private getAccessToken(): string {
@@ -205,7 +218,7 @@ import { File } from '@ionic-native/file';
   		if (at) {
   			return JSON.stringify(at);
   		}
-  		return "6965c4b9e4f23ef34e5b02fbc368ee35a5856923";
+  		return "260d7c250016675e3fe985db0adf7405a321075a";
   	}
 
   	private setAccessToken(accessToken: string) {

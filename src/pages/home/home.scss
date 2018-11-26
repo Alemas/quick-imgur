@@ -26,6 +26,19 @@ page-home {
 		font-size: 18px;
 	}
 
+	button.signInBtn {
+		font-size: 18px;
+		margin: 2px 2px 10px 0;
+		height: 50px;
+		// width: 100%;
+		border-width: 1px;
+		border-color: white;
+	}
+
+	button.signInBtn img {
+		height: 25px;
+	}
+
 	ion-col {
 		padding: 5px 10px !important;
 	}
@@ -70,5 +83,9 @@ page-home {
 
 	ion-grid.history button{
 		height: 50px;
+	}
+
+	ion-footer {
+		padding: 16px;
 	}
 }

@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { Base64 } from '@ionic-native/base64';
 import { File } from '@ionic-native/file';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -40,6 +41,7 @@ import { TimeUtilityProvider } from '../providers/time-utility/time-utility';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Base64,
     File,
+    SocialSharing,
     ImgurApiProvider,
     TimeUtilityProvider
   ]
